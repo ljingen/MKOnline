@@ -29,12 +29,18 @@ class CourseOrg(models.Model):
     name = models.CharField(max_length=50, verbose_name=u'机构名称')
     desc = models.TextField(verbose_name=u'机构介绍')
     click_nums = models.IntegerField(default=0, verbose_name=u'点击数')
+    category = models.CharField('类别', choices=(('pxjg', u'培训机构'), ('gx', u'高校'), ('gr', u'个人')), default='pxjg', max_length=5)
     fav_nums = models.IntegerField(default=0, verbose_name=u'收藏数')
     address = models.CharField(max_length=100, verbose_name=u'机构地址')
     city = models.ForeignKey(CityDict, verbose_name=u'城市')
-    image = models.ImageField(max_length=100, upload_to='images/%Y/%m',
+    image = models.ImageField(max_length=100, upload_to='org/%Y/%m',
                               default='image/default.png', verbose_name=u'封面图')
+    students = models.IntegerField(default=0, verbose_name=u'学习人数')
+    course_nums = models.IntegerField(default=0, verbose_name=u'课程数')
+
     add_time = models.DateTimeField(default=datetime.now, verbose_name=u'添加时间')
+
+
 
     class Meta:
         verbose_name = u'机构'

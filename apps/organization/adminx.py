@@ -18,9 +18,9 @@ class CourseOrgAdmin(object):
     """
     注册LessonAdmin的管理器
     """
-    list_display = ['name', 'desc', 'click_nums', 'fav_nums', 'address', 'city', 'image', 'add_time']
-    list_filter = ['name', 'desc', 'click_nums', 'fav_nums', 'address', 'city', 'image', 'add_time']
-    search_fields = ['name', 'desc', 'click_nums', 'fav_nums', 'address', 'city', 'image']
+    list_display = ['name', 'city', 'click_nums', 'fav_nums', 'address',  'image', 'add_time']
+    list_filter = ['name',  'city', 'click_nums', 'fav_nums', 'address',  'image', 'add_time']
+    search_fields = ['name',  'city', 'click_nums', 'fav_nums', 'address',  'image']
 
 
 class TeacherAdmin(object):

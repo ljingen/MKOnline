@@ -15,8 +15,13 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from django.conf import settings
 from django.views.generic import TemplateView
-from users.views import LoginView, RegisterView
+from django.views.static import serve
+from users.views import LoginView, RegisterView, ActiveUserView, ForgetPwdView, ResetPwdView, \
+    ModifyPwdView
+from organization.views import CourseOrgView
+
 import xadmin
 urlpatterns = [
     # url(r'^admin/', admin.site.urls),
@@ -25,4 +30,10 @@ urlpatterns = [
     url(r'^login/$', LoginView.as_view(), name='my_login'),
     url(r'^register/$', RegisterView.as_view(), name='my_register'),
     url(r'^captcha/', include('captcha.urls')),
+    url(r'^active/(?P<active_code>\w*)/$', ActiveUserView.as_view(), name='my_active_user'),
+    url(r'^forget_pwd/$', ForgetPwdView.as_view(), name='forget_pwd'),
+    url(r'^reset/(?P<reset_code>\w*)/$', ResetPwdView.as_view(), name='reset_pwd'),
+    url(r'modify_pwd/$', ModifyPwdView.as_view(), name='my_modify_pwd'),
+    url(r'^org_list/$', CourseOrgView.as_view(), name='org-list'),
+    url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
 ]

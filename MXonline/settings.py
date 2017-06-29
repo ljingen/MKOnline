@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'xadmin',
     'crispy_forms',
     'captcha',
+    'pure_pagination',
 ]
 
 MIDDLEWARE = [
@@ -80,6 +81,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # 添加这个用于处理在html里面处理 {{MEDIA_URL}}
+                'django.template.context_processors.media',
             ],
         },
     },
@@ -90,7 +93,6 @@ WSGI_APPLICATION = 'MXonline.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -143,6 +145,11 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
+# 配置文件上传的默认根路径，需要在setting里面加入如下配置文件
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
 # Media Root 如果使用FileField 和ImageField
 #在你的settings文件中, 你必须要定义 MEDIA_ROOT 作为Django存储上传文件的路径
 # (从性能上考虑，这些文件不能存在数据库中。) 定义一个 MEDIA_URL 作为基础的URL或者目录。
@@ -156,8 +163,12 @@ STATICFILES_DIRS = (
 #  upload_to的'%Y/%m/%d'被strftime()所格式化；'%Y' 将会被格式化为一个四位数的年份, '%m'
 # 被格式化为一个两位数的月份'%d'是两位数日份。如果你在Jan.15.2007上传了一个文件，它将被保存
 # 在/home/media/photos/2007/01/15目录下.
-# 例如，如果你的 MEDIA_ROOT设定为 '/home/media'，并且 upload_to设定为 'photos/%Y/%m/%d'。
-#  upload_to的'%Y/%m/%d'被strftime()所格式化；'%Y' 将会被格式化为一个四位数的年份, '%m'
-# 被格式化为一个两位数的月份'%d'是两位数日份。如果你在Jan.15.2007上传了一个文件，它将被保
-# 存在/home/media/photos/2007/01/15目录下
-MEDIA_ROOT = '/media'
+
+
+# 配置邮件附送服务器
+EMAIL_HOST = 'smtp.aliyun.com'
+EMAIL_PORT = '25'
+EMAIL_HOST_USER = 'luojingen@aliyun.com'
+EMAIL_HOST_PASSWORD = 'luo1380126'
+EMAIL_USE_TLS = False
+EMAIL_FROM = 'luojingen@aliyun.com'
