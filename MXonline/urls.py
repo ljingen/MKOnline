@@ -20,7 +20,7 @@ from django.views.generic import TemplateView
 from django.views.static import serve
 from users.views import LoginView, RegisterView, ActiveUserView, ForgetPwdView, ResetPwdView, \
     ModifyPwdView
-from organization.views import CourseOrgView
+from organization.views import CourseOrgView, Comments_Upload, CustomAddView, CustomAjaxView
 
 import xadmin
 urlpatterns = [
@@ -36,4 +36,8 @@ urlpatterns = [
     url(r'modify_pwd/$', ModifyPwdView.as_view(), name='my_modify_pwd'),
     url(r'^org_list/$', CourseOrgView.as_view(), name='org-list'),
     url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
+    # 这个项目里面的测试，尝试用ajax动态的提交内容到后台
+    url(r'^comments_upload/$', Comments_Upload.as_view(), name='comments_upload'),
+    url(r'^ajax/add/$', CustomAddView.as_view(), name='comments_add'),
+    url(r'^ajax/$', CustomAjaxView.as_view(), name='ajax_add'),
 ]
